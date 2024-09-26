@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import java.net.URI;
 
 
 @RestController
@@ -21,10 +25,6 @@ public class Controller {
     @Autowired
     private ProdutoService produtoService;
 
-    /*@GetMapping
-    public ResponseEntity<List<Produto>> getAll(){
-        return ResponseEntity.ok(produtoService.findAll());
-    } */
     @GetMapping
     public ResponseEntity<List<Produto>> getAll(@RequestParam(required = false) String nome){
         if (nome != null && !nome.isEmpty()){
@@ -46,6 +46,17 @@ public class Controller {
             return ResponseEntity.ok(produto);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping
+    public ResponseEntity<Produto> create(@RequestBody Produto produto){
+        produtoService.create(produto);
+        URI location = ServletUriComponentsBuilder
+                            .fromCurrentRequest()
+                            .path("/{id}")
+                            .buildAndExpand(produto.getId())
+                            .toUri();
+        return ResponseEntity.created(location).body(produto);
     }
 }
 

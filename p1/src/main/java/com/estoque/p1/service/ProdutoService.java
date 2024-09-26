@@ -35,6 +35,12 @@ public class ProdutoService {
                      .filter(c -> c.getNome().toLowerCase().indexOf(nome.toLowerCase()) > -1)
                      .toList();
     }
+
+    public void create(Produto produto){
+        Long newId = (long) (produtos.size() + 1);
+        produto.setId(newId);
+        produtos.add(produto);
+    }
 }
 
 /*package com.fatecrl.contacorrente.service;
