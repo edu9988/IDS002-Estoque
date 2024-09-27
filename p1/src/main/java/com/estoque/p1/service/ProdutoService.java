@@ -11,6 +11,7 @@ public class ProdutoService {
     private static List<Produto> produtos = new ArrayList<Produto>();
 
     public ProdutoService(){
+        /* Adiciona produto para teste */
         Produto p = new Produto();
         p.setId(1L);
         p.setNome("caderno");
