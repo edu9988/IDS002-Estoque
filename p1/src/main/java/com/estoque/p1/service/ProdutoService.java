@@ -41,87 +41,39 @@ public class ProdutoService {
         produto.setId(newId);
         produtos.add(produto);
     }
-}
-
-/*package com.fatecrl.contacorrente.service;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
-import com.fatecrl.contacorrente.model.Conta;
-
-@Service
-public class ContaService {
-    private static List<Conta> contas = new ArrayList<Conta>();
-
-    public ContaService(){
-        contaFake();
-    }
-
-    private void contaFake(){
-        Conta conta = new Conta();
-        conta.setAgencia(1234);
-        conta.setId(1L);
-        conta.setNumero("1234");
-        conta.setSaldo(1000.00);
-        conta.setTitular("Diego Neri");
-        contas.add(conta);
-    }
-
-    public List<Conta> findAll(){
-        return contas;
-    }
-
-    public Conta find(Conta conta){
-        return contas.stream()
-                     .filter(c -> c.equals(conta))
-                     .findFirst().orElse(null);                           
-    }
-
-    public Conta find(Long id){
-        return find(new Conta(id));
-    }
-
-    public List<Conta> findByTitular(String titular){
-        return contas.stream()
-                     .filter(c -> c.getTitular().toLowerCase().indexOf(titular.toLowerCase()) > -1)
-                     .toList();
-    }
-
-    public void create(Conta conta){
-        Long newId = (long) (contas.size() + 1);
-        conta.setId(newId);
-        contas.add(conta);
-    }
 
     public Boolean delete(Long id){
-        Conta _conta = find(id);
-        if (_conta != null){
-            contas.remove(_conta);
+        Produto _produto = find(id);
+        if (_produto != null){
+            produtos.remove(_produto);
             return true;
         }
         return false;
     }
 
-    public Boolean update(Conta conta){
-        Conta _conta = find(conta);
-        if (_conta != null){
-            if (conta.getAgencia() != null && conta.getAgencia() > 0)
-                _conta.setAgencia(conta.getAgencia());
+    public Produto find(Produto produto){
+        return produtos.stream()
+                     .filter(c -> c.equals(produto))
+                     .findFirst().orElse(null);                           
+    }
 
-            if (!conta.getNumero().isBlank())
-                _conta.setNumero(conta.getNumero());
+    public Boolean update(Produto produto){
+        Produto _produto = find(produto);
+        if (_produto != null){
+            if (produto.getQuantidade() != null && produto.getQuantidade() >= 0)
+                _produto.setQuantidade(produto.getQuantidade());
 
-            if (conta.getSaldo() != null && conta.getSaldo() > 0)
-                _conta.setSaldo(conta.getSaldo());
+            if (!produto.getNome().isBlank())
+                _produto.setNome(produto.getNome());
 
-            if (!conta.getTitular().isBlank())
-                _conta.setTitular(conta.getTitular());
+            if (produto.getPreco() != null && produto.getPreco() > 0)
+                _produto.setPreco(produto.getPreco());
+
+            if (!produto.getDescricao().isBlank())
+                _produto.setDescricao(produto.getDescricao());
             
             return true;
         }
         return false;
     }
-} */
+}
